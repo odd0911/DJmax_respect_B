@@ -1,0 +1,28 @@
+{
+    "songs": [
+        {
+            "title": "Summer Attack!",
+            "artist": "EmoCosine",
+            "bpm": 170,
+            "albumCover": "album1",
+            "albumCoverPath": "AlbumCover/song1",
+            "musicEventPath": "event:/music_test1"
+        },
+        {
+            "title": "Song 2",
+            "artist": "Artist 2",
+            "bpm": 160,
+            "albumCover": "album2",
+            "albumCoverPath": "AlbumCover/song2",
+            "musicEventPath": "event:/music_test2"
+        },
+        {
+            "title": "Song 3",
+            "artist": "Artist 3",
+            "bpm": 180,
+            "albumCover": "album3",
+            "albumCoverPath": "AlbumCover/song3",
+            "musicEventPath": "event:/music_test3"
+        }
+    ]
+}

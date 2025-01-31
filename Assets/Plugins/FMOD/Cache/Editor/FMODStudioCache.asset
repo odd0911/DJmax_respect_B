@@ -1,0 +1,220 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8689872837117369441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/music_test2
+  m_EditorClassIdentifier: 
+  Path: event:/music_test2
+  Guid:
+    Data1: -1888683133
+    Data2: 1287995736
+    Data3: 2015815605
+    Data4: 25389546
+  Banks:
+  - {fileID: -7277808047550907577}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 133093
+--- !u!114 &-8258839903504008181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/music_test3
+  m_EditorClassIdentifier: 
+  Path: event:/music_test3
+  Guid:
+    Data1: 813128965
+    Data2: 1143270348
+    Data3: -596913776
+    Data4: -896380642
+  Banks:
+  - {fileID: -7277808047550907577}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 113893
+--- !u!114 &-8154893954515427928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: ../OneDrive/Documents/FMOD Studio/Respect_B_gamemusic/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638725287748583670
+  FileSizes:
+  - Name: Desktop
+    Value: 986
+  Exists: 1
+--- !u!114 &-7277808047550907577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Bank A.bank
+  m_EditorClassIdentifier: 
+  Path: ../OneDrive/Documents/FMOD Studio/Respect_B_gamemusic/Build/Desktop/Bank
+    A.bank
+  Name: Bank A
+  StudioPath: bank:/Bank A
+  lastModified: 638736564376080150
+  FileSizes:
+  - Name: Desktop
+    Value: 5020928
+  Exists: 1
+--- !u!114 &-6861903160705275785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/gamemusic.bank
+  m_EditorClassIdentifier: 
+  Path: ../OneDrive/Documents/FMOD Studio/Respect_B_gamemusic/Build/Desktop/gamemusic.bank
+  Name: gamemusic
+  StudioPath: bank:/gamemusic
+  lastModified: 638699604602252240
+  FileSizes:
+  - Name: Desktop
+    Value: 494
+  Exists: 1
+--- !u!114 &-1791589643767657835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: ../OneDrive/Documents/FMOD Studio/Respect_B_gamemusic/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638725287748545719
+  FileSizes:
+  - Name: Desktop
+    Value: 1036
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -8154893954515427928}
+  - {fileID: -1791589643767657835}
+  - {fileID: -7277808047550907577}
+  - {fileID: -6861903160705275785}
+  EditorEvents:
+  - {fileID: 1830468210216055091}
+  - {fileID: 8214786873851602139}
+  - {fileID: -8258839903504008181}
+  - {fileID: -8689872837117369441}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: -1791589643767657835}
+  StringsBanks:
+  - {fileID: -8154893954515427928}
+  cacheTime: 638736564376080150
+  cacheVersion: 131621
+--- !u!114 &1830468210216055091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/music_test1
+  m_EditorClassIdentifier: 
+  Path: event:/music_test1
+  Guid:
+    Data1: -1008485532
+    Data2: 1203442302
+    Data3: -1312188527
+    Data4: 1672907535
+  Banks:
+  - {fileID: -7277808047550907577}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 139859
+--- !u!114 &8214786873851602139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SE_Typing_04a.wav
+  m_EditorClassIdentifier: 
+  Path: event:/SE_Typing_04a.wav
+  Guid:
+    Data1: 321857713
+    Data2: 1219765722
+    Data3: 1288855706
+    Data4: 152633216
+  Banks:
+  - {fileID: -7277808047550907577}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0

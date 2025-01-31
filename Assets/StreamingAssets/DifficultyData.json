@@ -1,0 +1,93 @@
+{
+    "difficulties": [
+        {
+            "title": "Song 1",
+            "nml": {
+                "level": 3,
+                "nb_score": 1000000,
+                "nb_status": 3,
+                "pl_score": 970000,
+                "pl_status": 1
+            },
+            "hrd": {
+                "level": 6,
+                "nb_score": 999907,
+                "nb_status": 2,
+                "pl_score": 900000,
+                "pl_status": 1
+            },
+            "ins": {
+                "level": 13,
+                "nb_score": 969976,
+                "nb_status": 2,
+                "pl_score": 800000,
+                "pl_status": 1
+            },
+            "tmt": {
+                "level": 19,
+                "nb_score": 799851,
+                "nb_status": 1,
+                "pl_score": 0,
+                "pl_status": 0
+            }
+        },
+        {
+            "title": "Song 2",
+            "nml": {
+                "level": 4,
+                "nb_score": 1000000,
+                "nb_status": 3,
+                "pl_score": 0,
+                "pl_status": 0
+            },
+            "hrd": {
+                "level": 9,
+                "nb_score": 1000000,
+                "nb_status": 3,
+                "pl_score": 0,
+                "pl_status": 0
+            },
+            "ins": {
+                "level": 10,
+                "nb_score": 1000000,
+                "nb_status": 3,
+                "pl_score": 0,
+                "pl_status": 0
+            },
+            "tmt": {
+                "level": 17,
+                "nb_score": 1000000,
+                "nb_status": 3,
+                "pl_score": 0,
+                "pl_status": 0
+            }
+        },
+        {
+            "title": "Song 3",
+            "nml": {
+                "level": 4,
+                "nb_score": 1000000,
+                "nb_status": 3,
+                "pl_score": 0,
+                "pl_status": 0
+            },
+            "hrd": {
+                "level": 9,
+                "nb_score": 1000000,
+                "nb_status": 3,
+                "pl_score": 0,
+                "pl_status": 0
+            },
+            "ins": {
+                "level": 0
+            },
+            "tmt": {
+                "level": 17,
+                "nb_score": 1000000,
+                "nb_status": 3,
+                "pl_score": 0,
+                "pl_status": 0
+            }
+        }
+    ]
+}
