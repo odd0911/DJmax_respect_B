@@ -7,6 +7,7 @@ using DG.Tweening;
 using FMODUnity;
 using FMOD.Studio;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class SongSelectionUI : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class SongSelectionUI : MonoBehaviour
     public Image ScoreIconUI;
     public RectTransform ScoreBox;
     public RectTransform SongInfo;
+    public SelectedSongInfo selectedSong;
 
     [Header("Song Data")]
     public List<SongData> songs = new List<SongData>(); // 곡 데이터 리스트
@@ -51,6 +53,16 @@ public class SongSelectionUI : MonoBehaviour
     [Header("Clear Icons")]
     public GameObject starIconPrefab; // 별 아이콘 프리팹
     public GameObject blueIconPrefab; // 달 모양 아이콘 프리팹
+
+    [System.Serializable]
+    public class SelectedSongInfo
+    {
+        public string title;
+        public string difficulty;
+        public string mode;
+        public string sheetFilePath;
+        public string fmodEventPath;
+    }
 
     private int currentDifficultyIndex = 0; // 현재 선택된 난이도 (0: nml, 1: hrd, 2: ins, 3: tmt)
     private const float ContentStartPosition = -125f; // Content 초기 위치
@@ -549,6 +561,16 @@ int GetScoreForCurrentDifficulty()
         }
     }
 
+    void SaveSongData()
+    {
+        PlayerPrefs.SetString("SongTitle", selectedSong.title);
+        PlayerPrefs.SetString("SongDifficulty", selectedSong.difficulty);
+        PlayerPrefs.SetString("SongMode", selectedSong.mode);
+        PlayerPrefs.SetString("SheetFilePath", selectedSong.sheetFilePath);
+        PlayerPrefs.SetString("FMODEventPath", selectedSong.fmodEventPath);
+        PlayerPrefs.Save(); // 변경 사항 저장
+    }
+
     void Update()
     {
         // 타이머 업데이트
@@ -619,6 +641,11 @@ int GetScoreForCurrentDifficulty()
             PlayNavigationSound();
             ScoreBoxUIScaling();
         }
+        if (Input.GetKeyDown(KeyCode.Return)) // 엔터키 입력 감지
+        {
+            SaveSongData();
+            SceneManager.LoadScene("GameScene"); // 게임 씬으로 이동
+        }
     }
 }
 
@@ -672,3 +699,4 @@ public class SettingsData
     public float NoteSpeed;
     public string Mode;
 }
+
