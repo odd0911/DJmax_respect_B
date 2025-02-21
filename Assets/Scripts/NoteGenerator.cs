@@ -11,6 +11,8 @@ public class NoteGenerator : MonoBehaviour
 
     private List<NoteData> notes = new List<NoteData>();
     private int offset;
+    private float baseSpawnHeight = 5f; // 스폰 위치의 Y 좌표
+    private float hitPositionY = -2f; // 판정선 Y 좌표
 
     void Start()
     {
@@ -59,31 +61,33 @@ public class NoteGenerator : MonoBehaviour
 
     System.Collections.IEnumerator SpawnNotes()
 {
-    foreach (var note in notes)
-    {
-        float spawnTime = (note.time - offset - (2500 / GameManager.Instance.speedMultiplier)) / 1000f;
-        if (spawnTime > 0)
-            yield return new WaitForSeconds(spawnTime);
+    float startTime = Time.time; // 코루틴 시작 시간
 
-        Transform spawnPoint = lanes[note.lane];
-
-        if (note.type == 0) // 일반 노트
+    int noteIndex = 0;
+    while (noteIndex < notes.Count)
         {
-            GameObject noteObj = NotePool.Instance.GetNote();
-            noteObj.transform.position = spawnPoint.position;
+            NoteData note = notes[noteIndex];
+            float noteTime = (note.time - offset) / 1000f;
 
-            Note noteScript = noteObj.GetComponent<Note>();
-            noteScript.UpdateSpeed();
-        }
-        else if (note.type == 1) // 롱노트
-        {
-            GameObject longNoteObj = LongNotePool.Instance.GetLongNote();
-            longNoteObj.transform.position = spawnPoint.position;
+            if (Time.time - startTime >= noteTime)
+            {
+                Transform spawnPoint = lanes[note.lane];
+                Vector3 spawnPosition = spawnPoint.position;
+                spawnPosition.y = baseSpawnHeight;
 
-            LongNote longNoteScript = longNoteObj.GetComponent<LongNote>();
-            longNoteScript.Initialize(note.time, note.endTime);
+                GameObject noteObj = NotePool.Instance.GetNote();
+                noteObj.transform.position = spawnPosition;
+
+                Note noteScript = noteObj.GetComponent<Note>();
+                noteScript.Initialize(baseSpawnHeight, hitPositionY);
+
+                noteIndex++;
+            }
+            else
+            {
+                yield return null;
+            }
         }
-    }
 }
 }
 

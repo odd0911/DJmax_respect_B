@@ -1,0 +1,13 @@
+[Description]
+Title: Usagi_Flap
+
+[Audio]
+BPM: 170
+Offset: 90
+
+[Note]
+266, 0, 1
+266, 0, 4
+442, 0, 2
+620, 0, 3
+796, 0, 4

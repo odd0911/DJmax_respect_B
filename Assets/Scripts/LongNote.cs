@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class LongNote : MonoBehaviour
 {
-    public float spawnY = 5.0f;
     public float judgeY = -2.0f;
     public float baseFallTime = 2.5f;
 
@@ -10,6 +9,9 @@ public class LongNote : MonoBehaviour
     private float longNoteLength;
     private int startTime;
     private int endTime;
+    private float spawnTime;
+    private float baseSpawnY = 5.0f;
+    private float spawnY = 5.0f;
 
     void OnEnable()
     {
@@ -38,10 +40,8 @@ public class LongNote : MonoBehaviour
     public void UpdateSpeed()
     {
         float speedMultiplier = GameManager.Instance.speedMultiplier;
-        fallSpeed = (spawnY - judgeY) / (baseFallTime / speedMultiplier);
-        longNoteLength = (endTime - startTime) / 1000f * fallSpeed;
+        spawnY = baseSpawnY * speedMultiplier;
 
-        transform.localScale = new Vector3(1, longNoteLength, 1);
     }
 
     void Update()

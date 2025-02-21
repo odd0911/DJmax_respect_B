@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     // Start 함수에서 스프라이트 비활성화
     void Start()
     {
+        ChangeSpeed(speedMultiplier);
         if (keyInput1 != null)
         {
             keyInput1.SetActive(false); // 게임 시작 시 스프라이트 비활성화
