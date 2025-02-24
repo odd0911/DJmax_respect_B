@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -82,6 +83,11 @@ public class GameManager : MonoBehaviour
             {
                 SetKeyInputActive(i, false);
             }
+        }
+        if (endScoreScreen.activeSelf && Input.GetKeyDown(KeyCode.Return)) // Enter 키 입력 확인
+        {
+            Debug.Log("Enter 키 입력! SongSelect 씬으로 이동합니다.");
+            SceneManager.LoadScene("SongSellect"); // "SongSelect" 씬으로 이동
         }
         if (musicEnd && !Faded) StartCoroutine(FadeOutAndInCoroutine());
     }
@@ -228,10 +234,10 @@ public class GameManager : MonoBehaviour
         float elapsedTime = 0f;
         Color color = fadeImage.color;
 
-        while (elapsedTime < 0.3f)
+        while (elapsedTime < 0.5f)
         {
             elapsedTime += Time.deltaTime;
-            color.a = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / 0.3f);
+            color.a = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / 0.5f);
             fadeImage.color = color;
             yield return null;
         }
