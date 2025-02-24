@@ -3,44 +3,59 @@ using System.Collections.Generic;
 
 public class NotePool : MonoBehaviour
 {
-    public static NotePool Instance; // 싱글톤 패턴
+    public static NotePool Instance { get; private set; }
     public GameObject notePrefab;
-    public int poolSize = 50; // 초기 생성 개수
+    public int poolSize = 50;
 
-    private Queue<GameObject> notePool = new Queue<GameObject>();
+    private readonly Queue<Note> notePool = new Queue<Note>();
 
-    void Awake()
+    private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
         InitializePool();
     }
 
-    void InitializePool()
+    private void InitializePool()
     {
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject noteObj = Instantiate(notePrefab);
-            noteObj.SetActive(false); // 비활성화 전에 GameManager 등록 방지
-            noteObj.GetComponent<Note>().enabled = false; // Note 스크립트 비활성화
-            notePool.Enqueue(noteObj);
+            ExpandPool();
         }
+    }
+
+    private void ExpandPool()
+    {
+        GameObject noteObj = Instantiate(notePrefab);
+        Note note = noteObj.GetComponent<Note>();
+
+        noteObj.SetActive(false);
+        notePool.Enqueue(note);
     }
 
     public GameObject GetNote()
     {
-        if (notePool.Count > 0)
-    {
-        GameObject noteObj = notePool.Dequeue();
-        noteObj.SetActive(true);
-        noteObj.GetComponent<Note>().enabled = true; // Note 스크립트 다시 활성화
-        return noteObj;
-    }
-    return Instantiate(notePrefab); // 풀이 부족하면 새로 생성
+        if (notePool.Count == 0)
+        {
+            ExpandPool(); // 풀이 부족할 때 자동 확장
+        }
+
+        Note note = notePool.Dequeue();
+        note.gameObject.SetActive(true);
+        return note.gameObject;
     }
 
-    public void ReturnNote(GameObject note)
+    public void ReturnNote(GameObject noteObj)
     {
-        note.SetActive(false);
+        Note note = noteObj.GetComponent<Note>();
+        if (note == null) return;
+
+        noteObj.SetActive(false);
         notePool.Enqueue(note);
     }
 }

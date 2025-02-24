@@ -2,57 +2,48 @@ using UnityEngine;
 
 public class Note : MonoBehaviour
 {
-    
+    public int laneIndex;
     public float judgeY = -2.0f;
     public float baseFallTime = 2.5f;
 
+    public float spawnTime;
     private float fallSpeed;
-    private float spawnTime;
-    private float baseSpawnY = 5.0f;
     private float spawnY = 5.0f;
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (GameManager.Instance != null)
-    {
-        GameManager.Instance.RegisterNote(this);
-        UpdateSpeed();
+        {
+            GameManager.Instance.RegisterNote(this);
+            Initialize(spawnY, judgeY);
+        }
     }
+
+    private void OnDisable()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.UnregisterNote(this);
+        }
     }
 
     public void Initialize(float spawnY, float hitY)
     {
-        this.spawnTime = Time.time * 1000; // ms 단위로 저장
-        this.spawnY = spawnY;
+        this.spawnTime = Time.time * 1000f; // ms 단위로 저장
         this.judgeY = hitY;
-    }
-
-    void OnDisable()
-    {
-        if (GameManager.Instance != null)
-        {
-        GameManager.Instance.UnregisterNote(this);
-        }
+        UpdateSpeed();
     }
 
     public void UpdateSpeed()
     {
-        float speedMultiplier = GameManager.Instance.speedMultiplier;
-        spawnY = baseSpawnY * speedMultiplier;
+        fallSpeed = GameManager.Instance.speedMultiplier;
     }
 
-    void Update()
+    private void Update()
     {
-        float speedMultiplier = GameManager.Instance.speedMultiplier;
-        spawnY = baseSpawnY * speedMultiplier;
-        float currentTime = Time.time * 1000; // ms 단위
-        float elapsed = currentTime - spawnTime;
-
-        // 새로운 위치 계산 (ms 단위 / 기준 이동 시간)
+        spawnY = GameManager.Instance.speedMultiplier*5;
+        float elapsed = (Time.time * 1000f) - spawnTime; // ms 단위
         float newY = spawnY - (elapsed / 2500f) * (spawnY - judgeY);
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 }
-
-
-

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{742545b6-2d94-4367-b245-b66832f92b3a}">
+		<property name="assetPath">
+			<value>ブルーアーカイブ Blue Archive OST 113. Usagi Flap.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>127.27200000000001</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f9898dd6-4993-4e69-a74b-2ccc6c5cde41}</destination>
+		</relationship>
+	</object>
+</objects>

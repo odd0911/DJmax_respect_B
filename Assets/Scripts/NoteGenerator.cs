@@ -1,36 +1,79 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using UnityEngine;
+using FMODUnity;
+using FMOD.Studio;
 
 public class NoteGenerator : MonoBehaviour
 {
     public TextAsset sheetFile;
     public Transform[] lanes;
     public float speedMultiplier = 1.0f;
+    public int totalNotes;
+    public static NoteGenerator Instance;
 
     private List<NoteData> notes = new List<NoteData>();
     private int offset;
-    private float baseSpawnHeight = 5f; // 스폰 위치의 Y 좌표
-    private float hitPositionY = -2f; // 판정선 Y 좌표
+    private bool musicPlaying = false;
+    private const float BaseSpawnHeight = 5f;
+    private const float HitPositionY = -2f;
+    private EventInstance musicEventInstance; // FMOD 이벤트 인스턴스
 
-    void Start()
+    void Awake()
+    {
+        Instance = this;
+    }
+
+    private void Start()
     {
         if (sheetFile != null)
         {
             ParseSheet(sheetFile.text);
             StartCoroutine(SpawnNotes());
+            Invoke("PlayMusic", 2.2f);
+            // FMOD 이벤트 인스턴스를 생성하고, 해당 경로로 이벤트 로드
+            musicEventInstance = FMODUnity.RuntimeManager.CreateInstance("event:/Usagi_Flap");
         }
     }
+    void PlayMusic()
+    {   
+        // 음악 이벤트 재생
+        musicEventInstance.start();
+        musicPlaying = true;
+    }
 
-    void ParseSheet(string sheetContent)
+    void Update()
     {
-        string[] lines = sheetContent.Split('\n');
-        bool noteSection = false;
-
-        foreach (string line in lines)
+        // 음악이 이미 종료되었으면 더 이상 검사를 하지 않도록
+    if (!GameManager.Instance.musicEnd && musicPlaying)
+    {
+        PLAYBACK_STATE playbackState;
+        
+        // 음악 재생 상태를 가져옴
+        if (musicEventInstance.getPlaybackState(out playbackState) == FMOD.RESULT.OK)
         {
-            string trimmed = line.Trim();
+            // 음악이 멈춘 상태(STOPPED)라면
+            if (playbackState == PLAYBACK_STATE.STOPPED)
+            {
+                Debug.Log("음악이 종료되었습니다!");
+                GameManager.Instance.musicEnd = true; // 종료 상태를 true로 변경
+            }
+        }
+        else
+        {
+            Debug.LogWarning("음악 상태를 가져오는 데 실패했습니다.");
+        }
+    }
+    }
+
+    private void ParseSheet(string sheetContent)
+    {
+        bool noteSection = false;
+        foreach (var line in sheetContent.Split('\n'))
+        {
+            var trimmed = line.Trim();
             if (string.IsNullOrEmpty(trimmed)) continue;
 
             if (trimmed.StartsWith("[Note]"))
@@ -41,46 +84,55 @@ public class NoteGenerator : MonoBehaviour
 
             if (noteSection)
             {
-                string[] data = trimmed.Split(',');
-                if (data.Length >= 3)
+                var data = trimmed.Split(',');
+                if (data.Length >= 3 &&
+                    int.TryParse(data[0], out int time) &&
+                    int.TryParse(data[1], out int type) &&
+                    int.TryParse(data[2], out int lane))
                 {
-                    int time = int.Parse(data[0]);
-                    int type = int.Parse(data[1]);
-                    int lane = int.Parse(data[2]) - 1;
-                    int endTime = type == 1 && data.Length == 4 ? int.Parse(data[3]) : 0;
+                    lane = Mathf.Clamp(lane - 1, 0, lanes.Length - 1);
+                    int endTime = (type == 1 && data.Length == 4 && int.TryParse(data[3], out int parsedEndTime)) 
+                                    ? parsedEndTime 
+                                    : 0;
 
                     notes.Add(new NoteData(time, type, lane, endTime));
                 }
             }
-            else if (trimmed.StartsWith("Offset:"))
+            else if (trimmed.StartsWith("Offset:") && 
+                     int.TryParse(trimmed.Split(':')[1].Trim(), out int parsedOffset))
             {
-                offset = int.Parse(trimmed.Split(':')[1].Trim());
+                offset = parsedOffset;
             }
+            
         }
+        totalNotes = notes.Count;
     }
 
-    System.Collections.IEnumerator SpawnNotes()
-{
-    float startTime = Time.time; // 코루틴 시작 시간
+    private IEnumerator SpawnNotes()
+    {
+        float startTime = Time.time;
+        int noteIndex = 0;
+        Vector3 spawnPosition = Vector3.zero;
 
-    int noteIndex = 0;
-    while (noteIndex < notes.Count)
+        while (noteIndex < notes.Count)
         {
-            NoteData note = notes[noteIndex];
+            var note = notes[noteIndex];
             float noteTime = (note.time - offset) / 1000f;
+            float elapsed = Time.time - startTime;
 
-            if (Time.time - startTime >= noteTime)
+            if (elapsed >= noteTime)
             {
-                Transform spawnPoint = lanes[note.lane];
-                Vector3 spawnPosition = spawnPoint.position;
-                spawnPosition.y = baseSpawnHeight;
+                spawnPosition = lanes[note.lane].position;
+                spawnPosition.y = BaseSpawnHeight;
 
-                GameObject noteObj = NotePool.Instance.GetNote();
+                var noteObj = NotePool.Instance.GetNote();
                 noteObj.transform.position = spawnPosition;
 
-                Note noteScript = noteObj.GetComponent<Note>();
-                noteScript.Initialize(baseSpawnHeight, hitPositionY);
+                var noteScript = noteObj.GetComponent<Note>();
+                noteScript.Initialize(BaseSpawnHeight, HitPositionY);
+                noteScript.laneIndex = note.lane;
 
+                GameManager.Instance.laneNotes[note.lane].Add(noteScript);
                 noteIndex++;
             }
             else
@@ -88,9 +140,8 @@ public class NoteGenerator : MonoBehaviour
                 yield return null;
             }
         }
+    }
 }
-}
-
 
 [Serializable]
 public class NoteData
@@ -108,3 +159,4 @@ public class NoteData
         this.endTime = endTime;
     }
 }
+
